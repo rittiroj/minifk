@@ -114,8 +114,8 @@ items:
           - --git-url=https://github.com/rittiroj/minifk.git
           - --git-branch=master
 =======
-          - --git-url=https://github.com/chanwit/minifk
-          - --git-branch=v1.15.9
+          - --git-url=https://github.com/rittiroj/minifk.git
+          - --git-branch=master
 >>>>>>> e89bb7ba3ff4d6f484f7fd901a9919ce067047cb
           - --git-poll-interval=30s
           - --git-path=.
