@@ -164,7 +164,6 @@ data:
     #    EXAMPLE CONFIGURATION     #
     #                              #
     ################################
-
     # This block is not actually functional configuration,
     # but serves to illustrate the available configuration
     # options and document them in a way that is accessible
@@ -173,7 +172,6 @@ data:
     # These sample configuration options may be copied out of
     # this example block and unindented to be in the data block
     # to actually change the configuration.
-
     # The Revision ContainerConcurrency field specifies the maximum number
     # of requests the Container can handle at once. Container concurrency
     # target percentage is how much of that maximum to use in a stable
@@ -190,7 +188,6 @@ data:
     #       the user container may receive, but only the average number of requests
     #       that the revision pods will receive.
     container-concurrency-target-percentage: "70"
-
     # The container concurrency target default is what the Autoscaler will
     # try to maintain when concurrency is used as the scaling metric for the
     # Revision and the Revision specifies unlimited concurrency.
@@ -209,7 +206,6 @@ data:
     #       per revision pod.
     # NOTE: Only one metric can be used for autoscaling a Revision.
     container-concurrency-target-default: "100"
-
     # The requests per second (RPS) target default is what the Autoscaler will
     # try to maintain when RPS is used as the scaling metric for a Revision and
     # the Revision specifies unlimited RPS. Even when specifying unlimited RPS,
@@ -218,7 +214,6 @@ data:
     # Must be greater than 1.0.
     # NOTE: Only one metric can be used for autoscaling a Revision.
     requests-per-second-target-default: "200"
-
     # The target burst capacity specifies the size of burst in concurrent
     # requests that the system operator expects the system will receive.
     # Autoscaler will try to protect the system from queueing by introducing
@@ -232,12 +227,10 @@ data:
     # be in the request path.
     # Other negative values are invalid.
     target-burst-capacity: "200"
-
     # When operating in a stable mode, the autoscaler operates on the
     # average concurrency over the stable window.
     # Stable window must be in whole seconds.
     stable-window: "60s"
-
     # When observed average concurrency during the panic window reaches
     # panic-threshold-percentage the target concurrency, the autoscaler
     # enters panic mode. When operating in panic mode, the autoscaler
@@ -246,11 +239,9 @@ data:
     # When computing the panic window it will be rounded to the closest
     # whole second.
     panic-window-percentage: "10.0"
-
     # The percentage of the container concurrency target at which to
     # enter panic mode when reached within the panic window.
     panic-threshold-percentage: "200.0"
-
     # Max scale up rate limits the rate at which the autoscaler will
     # increase pod count. It is the maximum ratio of desired pods versus
     # observed pods.
@@ -259,7 +250,6 @@ data:
     # over single Autoscaler period (see tick-interval), but at least N to
     # N+1, if Autoscaler needs to scale up.
     max-scale-up-rate: "1000.0"
-
     # Max scale down rate limits the rate at which the autoscaler will
     # decrease pod count. It is the maximum ratio of observed pods versus
     # desired pods.
@@ -268,27 +258,21 @@ data:
     # over single Autoscaler evaluation period (see tick-interval), but at
     # least N to N-1, if Autoscaler needs to scale down.
     max-scale-down-rate: "2.0"
-
     # Scale to zero feature flag
     enable-scale-to-zero: "true"
-
     # Tick interval is the time between autoscaling calculations.
     tick-interval: "2s"
-
     # Scale to zero grace period is the time an inactive revision is left
     # running before it is scaled to zero (min: 6s).
     scale-to-zero-grace-period: "30s"
-
     # Enable graceful scaledown feature flag.
     # Once enabled, it allows the autoscaler to prioritize pods processing
     # fewer (or zero) requests for removal when scaling down.
     enable-graceful-scaledown: "false"
-
     # pod-autoscaler-class specifies the default pod autoscaler class
     # that should be used if none is specified. If omitted, the Knative
     # Horizontal Pod Autoscaler (KPA) is used by default.
     pod-autoscaler-class: "kpa.autoscaling.knative.dev"
-
     # The capacity of a single activator task.
     # The `unit` is one concurrent request proxied by the activator.
     # activator-capacity must be at least 1.
@@ -296,7 +280,6 @@ data:
     # See the algorithm here: http://bit.ly/38XiCZ3.
     # TODO(vagababov): tune after actual benchmarking.
     activator-capacity: "100.0"
-
 ---
 # Copyright 2019 The Knative Authors
 #
@@ -326,7 +309,6 @@ data:
     #    EXAMPLE CONFIGURATION     #
     #                              #
     ################################
-
     # This block is not actually functional configuration,
     # but serves to illustrate the available configuration
     # options and document them in a way that is accessible
@@ -335,62 +317,51 @@ data:
     # These sample configuration options may be copied out of
     # this example block and unindented to be in the data block
     # to actually change the configuration.
-
     # revision-timeout-seconds contains the default number of
     # seconds to use for the revision's per-request timeout, if
     # none is specified.
     revision-timeout-seconds: "300"  # 5 minutes
-
     # max-revision-timeout-seconds contains the maximum number of
     # seconds that can be used for revision-timeout-seconds.
     # This value must be greater than or equal to revision-timeout-seconds.
     # If omitted, the system default is used (600 seconds).
     max-revision-timeout-seconds: "600"  # 10 minutes
-
     # revision-cpu-request contains the cpu allocation to assign
     # to revisions by default.  If omitted, no value is specified
     # and the system default is used.
     revision-cpu-request: "400m"  # 0.4 of a CPU (aka 400 milli-CPU)
-
     # revision-memory-request contains the memory allocation to assign
     # to revisions by default.  If omitted, no value is specified
     # and the system default is used.
     revision-memory-request: "100M"  # 100 megabytes of memory
-
     # revision-cpu-limit contains the cpu allocation to limit
     # revisions to by default.  If omitted, no value is specified
     # and the system default is used.
     revision-cpu-limit: "1000m"  # 1 CPU (aka 1000 milli-CPU)
-
     # revision-memory-limit contains the memory allocation to limit
     # revisions to by default.  If omitted, no value is specified
     # and the system default is used.
     revision-memory-limit: "200M"  # 200 megabytes of memory
-
     # container-name-template contains a template for the default
     # container name, if none is specified.  This field supports
     # Go templating and is supplied with the ObjectMeta of the
     # enclosing Service or Configuration, so values such as
     # {{.Name}} are also valid.
     container-name-template: "user-container"
-
     # container-concurrency specifies the maximum number
     # of requests the Container can handle at once, and requests
     # above this threshold are queued.  Setting a value of zero
     # disables this throttling and lets through as many requests as
     # the pod receives.
     container-concurrency: "0"
-
     # The container concurrency max limit is an operator setting ensuring that
     # the individual revisions cannot have arbitrary large concurrency
     # values, or autoscaling targets. `container-concurrency` default setting
     # must be at or below this value.
     # Must be greater than 1.
     container-concurrency-max-limit: "1000"
-
     # feature flag indicates whether to enable multi container support or not
     enable-multi-container: "false"
-
 ---
 # Copyright 2019 The Knative Authors
 #
@@ -423,7 +394,6 @@ data:
     #    EXAMPLE CONFIGURATION     #
     #                              #
     ################################
-
     # This block is not actually functional configuration,
     # but serves to illustrate the available configuration
     # options and document them in a way that is accessible
@@ -432,10 +402,8 @@ data:
     # These sample configuration options may be copied out of
     # this example block and unindented to be in the data block
     # to actually change the configuration.
-
     # List of repositories for which tag to digest resolving should be skipped
     registriesSkippingTagResolving: "ko.local,dev.local"
-
 ---
 # Copyright 2018 The Knative Authors
 #
@@ -465,7 +433,6 @@ data:
     #    EXAMPLE CONFIGURATION     #
     #                              #
     ################################
-
     # This block is not actually functional configuration,
     # but serves to illustrate the available configuration
     # options and document them in a way that is accessible
@@ -474,18 +441,15 @@ data:
     # These sample configuration options may be copied out of
     # this example block and unindented to be in the data block
     # to actually change the configuration.
-
     # Default value for domain.
     # Although it will match all routes, it is the least-specific rule so it
     # will only be used if no other domain matches.
     example.com: |
-
     # These are example settings of domain.
     # example.org will be used for routes having app=nonprofit.
     example.org: |
       selector:
         app: nonprofit
-
     # Routes having domain suffix of 'svc.cluster.local' will not be exposed
     # through Ingress. You can define your own label selector to assign that
     # domain suffix to your Route here, or you can set the label
@@ -495,7 +459,6 @@ data:
     svc.cluster.local: |
       selector:
         app: secret
-
 ---
 # Copyright 2018 The Knative Authors
 #
@@ -525,7 +488,6 @@ data:
     #    EXAMPLE CONFIGURATION     #
     #                              #
     ################################
-
     # This block is not actually functional configuration,
     # but serves to illustrate the available configuration
     # options and document them in a way that is accessible
@@ -534,24 +496,19 @@ data:
     # These sample configuration options may be copied out of
     # this example block and unindented to be in the data block
     # to actually change the configuration.
-
     # Delay after revision creation before considering it for GC
     stale-revision-create-delay: "48h"
-
     # Duration since a route has pointed at the revision before it
     # should be GC'd.
     # This minus lastpinned-debounce must be longer than the controller
     # resync period (10 hours).
     stale-revision-timeout: "15h"
-
     # Minimum number of generations of revisions to keep before considering
     # them for GC
     stale-revision-minimum-generations: "20"
-
     # To avoid constant updates, we allow an existing annotation to be stale by this
     # amount before we update the timestamp.
     stale-revision-lastpinned-debounce: "5h"
-
 ---
 # Copyright 2020 The Knative Authors
 #
@@ -586,7 +543,6 @@ data:
     #    EXAMPLE CONFIGURATION     #
     #                              #
     ################################
-
     # This block is not actually functional configuration,
     # but serves to illustrate the available configuration
     # options and document them in a way that is accessible
@@ -595,7 +551,6 @@ data:
     # These sample configuration options may be copied out of
     # this example block and unindented to be in the data block
     # to actually change the configuration.
-
     # resourceLock controls which API resource is used as the basis for the
     # leader election lock. Valid values are:
     #
@@ -603,7 +558,6 @@ data:
     # - configmaps -> use configmaps
     # - endpoints -> use endpoints
     resourceLock: "leases"
-
     # leaseDuration is how long non-leaders will wait to try to acquire the
     # lock; 15 seconds is the value used by core kubernetes controllers.
     leaseDuration: "15s"
@@ -622,7 +576,6 @@ data:
     # - istiocontroller
     # - nscontroller
     enabledComponents: "controller,hpaautoscaler,certcontroller,istiocontroller,nscontroller"
-
 ---
 # Copyright 2018 The Knative Authors
 #
@@ -652,7 +605,6 @@ data:
     #    EXAMPLE CONFIGURATION     #
     #                              #
     ################################
-
     # This block is not actually functional configuration,
     # but serves to illustrate the available configuration
     # options and document them in a way that is accessible
@@ -661,7 +613,6 @@ data:
     # These sample configuration options may be copied out of
     # this example block and unindented to be in the data block
     # to actually change the configuration.
-
     # Common configuration for all Knative codebase
     zap-logger-config: |
       {
@@ -684,7 +635,6 @@ data:
           "callerEncoder": ""
         }
       }
-
     # Log level overrides
     # For all components except the autoscaler and queue proxy,
     # changes are be picked up immediately.
@@ -698,7 +648,6 @@ data:
     loglevel.certcontroller: "info"
     loglevel.istiocontroller: "info"
     loglevel.nscontroller: "info"
-
 ---
 # Copyright 2018 The Knative Authors
 #
@@ -722,14 +671,13 @@ metadata:
   labels:
     serving.knative.dev/release: "v0.14.0"
 data:
- ingress.class: "kourier.ingress.networking.knative.dev"
+  ingress.class: "kourier.ingress.networking.knative.dev"
   _example: |
     ################################
     #                              #
     #    EXAMPLE CONFIGURATION     #
     #                              #
     ################################
-
     # This block is not actually functional configuration,
     # but serves to illustrate the available configuration
     # options and document them in a way that is accessible
@@ -738,14 +686,12 @@ data:
     # These sample configuration options may be copied out of
     # this example block and unindented to be in the data block
     # to actually change the configuration.
-
     # DEPRECATED:
     # istio.sidecar.includeOutboundIPRanges is obsolete.
     # The current versions have outbound network access enabled by default.
     # If you need this option for some reason, please use global.proxy.includeIPRanges in Istio.
     #
     # istio.sidecar.includeOutboundIPRanges: "*"
-
     # ingress.class specifies the default ingress class
     # to use when not dictated by Route annotation.
     #
@@ -756,7 +702,6 @@ data:
     # update this value during the setup of Knative, to avoid getting
     # undefined behavior.
     ingress.class: "kourier.ingress.networking.knative.dev"
-
     # certificate.class specifies the default Certificate class
     # to use when not dictated by Route annotation.
     #
@@ -767,7 +712,6 @@ data:
     # update this value during the setup of Knative, to avoid getting
     # undefined behavior.
     certificate.class: "cert-manager.certificate.networking.knative.dev"
-
     # domainTemplate specifies the golang text template string to use
     # when constructing the Knative service's DNS name. The default
     # value is "{{.Name}}.{{.Namespace}}.{{.Domain}}". And those three
@@ -786,19 +730,16 @@ data:
     # Example '{{.Name}}-{{.Namespace}}.{{ index .Annotations "sub"}}.{{.Domain}}'
     # and you have an annotation {"sub":"foo"}, then the generated template would be {Name}-{Namespace}.foo.{Domain}
     domainTemplate: "{{.Name}}.{{.Namespace}}.{{.Domain}}"
-
     # tagTemplate specifies the golang text template string to use
     # when constructing the DNS name for "tags" within the traffic blocks
     # of Routes and Configuration.  This is used in conjunction with the
     # domainTemplate above to determine the full URL for the tag.
     tagTemplate: "{{.Tag}}-{{.Name}}"
-
     # Controls whether TLS certificates are automatically provisioned and
     # installed in the Knative ingress to terminate external TLS connection.
     # 1. Enabled: enabling auto-TLS feature.
     # 2. Disabled: disabling auto-TLS feature.
     autoTLS: "Disabled"
-
     # Controls the behavior of the HTTP endpoint for the Knative ingress.
     # It requires autoTLS to be enabled.
     # 1. Enabled: The Knative ingress will be able to serve HTTP connection.
@@ -806,7 +747,6 @@ data:
     # 3. Redirected: The Knative ingress will send a 302 redirect for all
     # http connections, asking the clients to use HTTPS
     httpProtocol: "Enabled"
-
 ---
 # Copyright 2018 The Knative Authors
 #
@@ -836,7 +776,6 @@ data:
     #    EXAMPLE CONFIGURATION     #
     #                              #
     ################################
-
     # This block is not actually functional configuration,
     # but serves to illustrate the available configuration
     # options and document them in a way that is accessible
@@ -845,19 +784,16 @@ data:
     # These sample configuration options may be copied out of
     # this example block and unindented to be in the data block
     # to actually change the configuration.
-
     # logging.enable-var-log-collection defaults to false.
     # The fluentd daemon set will be set up to collect /var/log if
     # this flag is true.
     logging.enable-var-log-collection: "false"
-
     # logging.revision-url-template provides a template to use for producing the
     # logging URL that is injected into the status of each Revision.
     # This value is what you might use the the Knative monitoring bundle, and provides
     # access to Kibana after setting up kubectl proxy.
     logging.revision-url-template: |
       http://localhost:8001/api/v1/namespaces/knative-monitoring/services/kibana-logging/proxy/app/kibana#/discover?_a=(query:(match:(kubernetes.labels.serving-knative-dev%2FrevisionUID:(query:'${REVISION_UID}',type:phrase))))
-
     # If non-empty, this enables queue proxy writing user request logs to stdout, excluding probe
     # requests.
     # The value determines the shape of the request logs and it must be a valid go text/template.
@@ -887,39 +823,32 @@ data:
     # }
     #
     logging.request-log-template: '{"httpRequest": {"requestMethod": "{{.Request.Method}}", "requestUrl": "{{js .Request.RequestURI}}", "requestSize": "{{.Request.ContentLength}}", "status": {{.Response.Code}}, "responseSize": "{{.Response.Size}}", "userAgent": "{{js .Request.UserAgent}}", "remoteIp": "{{js .Request.RemoteAddr}}", "serverIp": "{{.Revision.PodIP}}", "referer": "{{js .Request.Referer}}", "latency": "{{.Response.Latency}}s", "protocol": "{{.Request.Proto}}"}, "traceId": "{{index .Request.Header "X-B3-Traceid"}}"}'
-
     # If true, this enables queue proxy writing request logs for probe requests to stdout.
     # It uses the same template for user requests, i.e. logging.request-log-template.
     logging.enable-probe-request-log: "false"
-
     # metrics.backend-destination field specifies the system metrics destination.
     # It supports either prometheus (the default) or stackdriver.
     # Note: Using stackdriver will incur additional charges
     metrics.backend-destination: prometheus
-
     # metrics.request-metrics-backend-destination specifies the request metrics
     # destination. It enables queue proxy to send request metrics.
     # Currently supported values: prometheus (the default), stackdriver.
     metrics.request-metrics-backend-destination: prometheus
-
     # metrics.stackdriver-project-id field specifies the stackdriver project ID. This
     # field is optional. When running on GCE, application default credentials will be
     # used if this field is not provided.
     metrics.stackdriver-project-id: "<your stackdriver project id>"
-
     # metrics.allow-stackdriver-custom-metrics indicates whether it is allowed to send metrics to
     # Stackdriver using "global" resource type and custom metric type if the
     # metrics are not supported by "knative_revision" resource type. Setting this
     # flag to "true" could cause extra Stackdriver charge.
     # If metrics.backend-destination is not Stackdriver, this is ignored.
     metrics.allow-stackdriver-custom-metrics: "false"
-
     # profiling.enable indicates whether it is allowed to retrieve runtime profiling data from
     # the pods via an HTTP server in the format expected by the pprof visualization tool. When
     # enabled, the Knative Serving pods expose the profiling data on an alternate HTTP port 8008.
     # The HTTP context root for profiling is then /debug/pprof/.
     profiling.enable: "false"
-
 ---
 # Copyright 2019 The Knative Authors
 #
@@ -949,7 +878,6 @@ data:
     #    EXAMPLE CONFIGURATION     #
     #                              #
     ################################
-
     # This block is not actually functional configuration,
     # but serves to illustrate the available configuration
     # options and document them in a way that is accessible
@@ -961,23 +889,18 @@ data:
     #
     # This may be "zipkin" or "stackdriver", the default is "none"
     backend: "none"
-
     # URL to zipkin collector where traces are sent.
     # This must be specified when backend is "zipkin"
     zipkin-endpoint: "http://zipkin.istio-system.svc.cluster.local:9411/api/v2/spans"
-
     # The GCP project into which stackdriver metrics will be written
     # when backend is "stackdriver".  If unspecified, the project-id
     # is read from GCP metadata when running on GCP.
     stackdriver-project-id: "my-project"
-
     # Enable zipkin debug mode. This allows all spans to be sent to the server
     # bypassing sampling.
     debug: "false"
-
     # Percentage (0-1) of requests to trace
     sample-rate: "0.1"
-
 ---
 # Copyright 2020 The Knative Authors
 #
